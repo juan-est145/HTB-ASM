@@ -5,4 +5,9 @@ _start:
 	xor al, al
 	xor bl, bl
 	inc bl
-	add al, bl
+	mov rcx, 10
+
+loopfib:
+	add al, bl,
+	xchg al, bl
+	loop loopfib
