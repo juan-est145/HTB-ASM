@@ -11,9 +11,11 @@ _start:
     call Exit           ; Exit the program
 
 print:
+    push rax
     mov rdi, outFormat  ; set 1st argument (Print Format)
     mov rsi, message    ; set 2nd argument (message)
     call printf         ; printf(outFormat, message)
+    pop rax
     ret
 
 Exit:
