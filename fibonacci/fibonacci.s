@@ -1,7 +1,16 @@
 global _start
 
+section .data
+	message db "Fibonacci Sequence:", 0x0a
+
 section .text
 _start:
+	mov rax, 1
+	mov rdi, 1
+	mov rsi, message
+	mov rdx, 20
+	syscall
+
 	xor al, al
 	xor bl, bl
 	inc bl
@@ -11,3 +20,7 @@ loopfib:
 	xchg al, bl
 	cmp bl, 10
 	js loopfib
+
+	mov rax, 60
+	mov rdi, 0
+	syscall
