@@ -21,8 +21,8 @@ loopfib:
 	
 	
 	cmp bl, 10
-	jl write
-	js loopfib
+	js write
+	; js loopfib
 
 	mov rax, 60
 	mov rdi, 0
