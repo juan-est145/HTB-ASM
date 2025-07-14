@@ -1,16 +1,29 @@
 global  _start
-extern  printf
+extern  printf, scanf
 
 section .data
-    message db "Fibonacci Sequence:", 0x0a
+    message db "Please input max Fn:", 0x0a
     outFormat db  "%d", 0x0a, 0x00
+    inFormat db "%d", 0x00
+
+section .bss
+    userInput resb 1
 
 section .text
 _start:
     call printMessage   ; print intro message
+    call getInput       ; get max number
     call initFib        ; set initial Fib values
     call loopFib        ; calculate Fib numbers
     call Exit           ; Exit the program
+
+getInput:
+    sub rsp, 8
+    mov rdi, inFormat
+    mov rsi, userInput
+    call scanf
+    add rsp, 8
+    ret
 
 printMessage:
     mov rax, 1           ; rax: syscall number 1
@@ -37,11 +50,11 @@ printFib:
     ret
 
 loopFib:
-    call printFib       ; print current Fib number
-    add rax, rbx        ; get the next number
-    xchg rax, rbx       ; swap values
-    cmp rbx, 10		    ; do rbx - 10
-    js loopFib		    ; jump if result is <0
+    call printFib           ; print current Fib number
+    add rax, rbx            ; get the next number
+    xchg rax, rbx           ; swap values
+    cmp rbx, [userInput]    ; do rbx - 10
+    js loopFib		        ; jump if result is <0
     ret
 
 Exit:
